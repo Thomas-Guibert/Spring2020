@@ -3,18 +3,18 @@ package sample.data.jpa.service;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import sample.data.jpa.domain.User;
+import sample.data.jpa.domain.UserExemple;
 
 // Imports ...
 
 @Transactional
-public interface UserDao extends JpaRepository<User, Long> {
+public interface UserDao extends JpaRepository<UserExemple, Long> {
 
   /**
    * This method will find an User instance in the database by its email.
    * Note that this method is not implemented and its working code will be
    * automagically generated from its signature by Spring Data JPA.
    */
-  public User findByEmail(String email);
+  public UserExemple findByEmail(String email);
 
 }
