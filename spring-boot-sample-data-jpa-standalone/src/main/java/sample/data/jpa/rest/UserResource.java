@@ -1,5 +1,5 @@
 package sample.data.jpa.rest;
-
+/*
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -71,7 +71,7 @@ public class UserResource {
     // add pet
     return Response.ok().entity("SUCCESS").build();
   }*/
-  
+  /*
   @POST
   @Path("/addUser/{UserName}/{UserNameF}/{UserMail}/{UserPwd}")
   @Consumes(MediaType.APPLICATION_JSON)
@@ -92,7 +92,7 @@ public class UserResource {
     return Response.ok().entity("SUCCESS").build();
   }
    */
-  
+  /*
   
   @POST
   @Path("/addUserBasic")
@@ -104,4 +104,4 @@ public class UserResource {
     
     return Response.ok().entity("SUCCESS").build();
   }
-}
+}*/

@@ -1,6 +1,7 @@
 package sample.data.jpa.web;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import sample.data.jpa.dao.UserDAO;
 import sample.data.jpa.domain.RendezVous;
 import sample.data.jpa.domain.User;
 import sample.data.jpa.service.UserDao;
@@ -19,37 +19,47 @@ public class UserController {
 	/**
 	 * GET /create  --> Create a new user and save it in the database.
 	 */
-	@RequestMapping("/create")
+	@RequestMapping("user/create")
 	@ResponseBody
-	public String create(String name, String nameF,String mail, String pwd) {
-		String userId = "";
+	public String create() {
 		try {
-			UserDAO u = new UserDAO();
-			u.createUser(name, nameF, mail, pwd);
-			//userId = String.valueOf(u.getId());
+			userDao.save(new User("Thomas","Guibert","ThomasG@gmail.com","azerty123",new ArrayList<RendezVous>()));	
 		}
 		catch (Exception ex) {
-			return "Error creating the user: " /*+ ex.toString()*/;
+			return "Error creating the user";
 		}
-		return "User succesfully created with id = " /*+ userId*/;
+		return "User succesfully created with id" ;
 	}
+	
+	
+	@RequestMapping("user/create/{UserName}/{UserNameF}/{UserMail}/{UserPwd}")
+	@ResponseBody
+	public String create(@PathVariable("UserName") String name,@PathVariable("UserNameF") String nameF,@PathVariable("UserMail") String mail,@PathVariable("UserPwd") String pwd) {
+		try {
+			userDao.save(new User(name,nameF,mail,pwd,new ArrayList<RendezVous>()));	
+		}
+		catch (Exception ex) {
+			return "Error creating the user";
+		}
+		return "User succesfully created with id" ;
+	}
+	 
 
 	
 	/**
 	 * GET /delete  --> Delete the user having the passed id.
-	 *//*
-	@RequestMapping("/delete")
+	 */
+	@RequestMapping("user/delete/{email}")
 	@ResponseBody
-	public String delete(long id) {
+	public String delete(@PathVariable("email") String email) {
 		try {
-			User user = new User(id);
-			userDao.delete(user);
+			userDao.delete(userDao.findUserByMail(email));
 		}
 		catch (Exception ex) {
 			return "Error deleting the user:" + ex.toString();
 		}
 		return "User succesfully deleted!";
-	}*/
+	}
 
 	/**
 	 * GET /get-by-email  --> Return the id for the user having the passed
@@ -72,13 +82,13 @@ public class UserController {
 	/**
 	 * GET /update  --> Update the email and the name for the user in the 
 	 * database having the passed id.
-	 *//*
-	@RequestMapping("/update")
+	 */
+	@RequestMapping("user/updateName")
 	@ResponseBody
-	public String updateUser(long id, String email, String name) {
+	public String updateUser(String mail, String name) {
 		try {
-			User user = userDao.findById(id).get();
-			user.setEmail(email);
+			
+			User user = userDao.findUserByMail(mail);
 			user.setName(name);
 			userDao.save(user);
 		}
@@ -87,8 +97,27 @@ public class UserController {
 		}
 		return "User succesfully updated!";
 	}
-*/
+
 	// Private fields
+	
+	/**
+	 * GET /create  --> Create a new user and save it in the database.
+	 */
+	@RequestMapping("user/showAllUser")
+	@ResponseBody
+	public String showAllUser() {
+		try {
+			List<User> users =userDao.getAllUser();
+			String res= "";
+			for (User next : users) {
+				res += next.getName() + " " + next.getNameF() + " - mail : " + next.getMail() + " - pwd : " + next.getMdp();
+			}
+			return res;
+		}
+		catch (Exception ex) {
+			return "Error creating the user: " + ex.toString();
+		}
+	}
 
 	@Autowired
 	private UserDao userDao;
