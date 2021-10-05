@@ -3,6 +3,9 @@ package sample.data.jpa.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,14 +19,16 @@ import sample.data.jpa.service.UserDao;
 @Controller
 public class UserController {
 
-	/**
-	 * GET /create  --> Create a new user and save it in the database.
-	 */
-	@RequestMapping("user/create")
+	//Create
+	
+	@RequestMapping("user/createdefault")
 	@ResponseBody
 	public String create() {
 		try {
 			userDao.save(new User("Thomas","Guibert","ThomasG@gmail.com","azerty123",new ArrayList<RendezVous>()));	
+			userDao.save(new User("Julie", "Reina","j.r@gmail.com", "JuliePwd", new ArrayList<RendezVous>()));
+			userDao.save(new User("Henri", "Poupard", "henri@orange.fr", "HenriPwd", new ArrayList<RendezVous>()));
+			userDao.save(new User("Arnaud", "Goxe", "a@gmail.com", "ArnaudPwd", new ArrayList<RendezVous>()));
 		}
 		catch (Exception ex) {
 			return "Error creating the user";
@@ -45,10 +50,8 @@ public class UserController {
 	}
 	 
 
+	//Delete
 	
-	/**
-	 * GET /delete  --> Delete the user having the passed id.
-	 */
 	@RequestMapping("user/delete/{email}")
 	@ResponseBody
 	public String delete(@PathVariable("email") String email) {
@@ -60,63 +63,82 @@ public class UserController {
 		}
 		return "User succesfully deleted!";
 	}
-
-	/**
-	 * GET /get-by-email  --> Return the id for the user having the passed
-	 * email.
-	 *//*
-	@RequestMapping("/get-by-email/{email}")
+	
+	@RequestMapping("user/deleteAll")
 	@ResponseBody
-	public String getByEmail(@PathVariable("email") String email) {
-		String userId = "";
+	public String deleteAll() {
 		try {
-			User user = userDao.findByEmail(email);
-			userId = String.valueOf(user.getId());
+			List<User> users = userDao.getAllUser();
+			for(User next : users) {
+				userDao.delete(userDao.findUserByMail(next.getMail()));
+			}
 		}
 		catch (Exception ex) {
-			return "User not found";
+			return "Error deleting the user:" + ex.toString();
 		}
-		return "The user id is: " + userId;
-	}*/
+		return "User succesfully deleted!";
+	}
 
-	/**
-	 * GET /update  --> Update the email and the name for the user in the 
-	 * database having the passed id.
-	 */
-	@RequestMapping("user/updateName")
+	
+	//Update
+
+	@RequestMapping("/user/updateNamebyMail/{mail}/{nameF}")
 	@ResponseBody
-	public String updateUser(String mail, String name) {
+	public String updateNamebyMail(@PathVariable("mail") String mail, @PathVariable("nameF") String name) {
 		try {
-			
-			User user = userDao.findUserByMail(mail);
-			user.setName(name);
-			userDao.save(user);
+			User u = userDao.findUserByMail(mail);
+			u.setName(name);
+			userDao.save(u);
 		}
 		catch (Exception ex) {
 			return "Error updating the user: " + ex.toString();
 		}
 		return "User succesfully updated!";
 	}
-
-	// Private fields
 	
-	/**
-	 * GET /create  --> Create a new user and save it in the database.
-	 */
-	@RequestMapping("user/showAllUser")
+	@RequestMapping("/user/updateNameFbyMail/{mail}/{nameF}")
 	@ResponseBody
-	public String showAllUser() {
+	public String updateNameFbyMail(@PathVariable("mail") String mail, @PathVariable("nameF") String nameF) {
 		try {
-			List<User> users =userDao.getAllUser();
-			String res= "";
-			for (User next : users) {
-				res += next.getName() + " " + next.getNameF() + " - mail : " + next.getMail() + " - pwd : " + next.getMdp();
-			}
-			return res;
+			User u = userDao.findUserByMail(mail);
+			u.setNameF(nameF);
+			userDao.save(u);
 		}
 		catch (Exception ex) {
-			return "Error creating the user: " + ex.toString();
+			return "Error updating the user: " + ex.toString();
 		}
+		return "User succesfully updated!";
+	}
+	
+	@RequestMapping("/user/updateMdpbyMail/{mail}/{mdp}")
+	@ResponseBody
+	public String updateMdpbyMail(@PathVariable("mail") String mail, @PathVariable("mdp") String mdp) {
+		try {
+			User u = userDao.findUserByMail(mail);
+			u.setMdp(mdp);
+			userDao.save(u);
+		}
+		catch (Exception ex) {
+			return "Error updating the user: " + ex.toString();
+		}
+		return "User succesfully updated!";
+	}
+	
+	
+	//Show
+	
+	@RequestMapping("user/showAllUser")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ResponseBody
+	public List<User> showAllUser() {
+			return userDao.getAllUser();
+	}
+	
+	@RequestMapping("user/showUser/{mail}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ResponseBody
+	public User showUser(@PathVariable("mail") String mail) {
+			return userDao.findUserByMail(mail);
 	}
 
 	@Autowired

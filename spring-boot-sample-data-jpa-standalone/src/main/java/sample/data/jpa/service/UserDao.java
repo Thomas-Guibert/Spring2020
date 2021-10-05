@@ -39,10 +39,5 @@ public interface UserDao extends JpaRepository<User, Long> {
 	public User findUserByNames(String name,String nameF);
 	
 	@Query("Select a.rendezvous From User as a where a.mail = ?1")
-	public User findUserRendezVous(String mail);
-	
-	//@Query("Select a From User as a where a.id = ?1")
-	//public User findUserById(long id);
-	 
-	 
+	public User findUserRendezVous(String mail);	 
 }
