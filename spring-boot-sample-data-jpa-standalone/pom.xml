@@ -48,12 +48,12 @@
 			<version>2.0.1.Final</version>
 		</dependency>
 
-<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-<dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>8.0.21</version>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.21</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -62,13 +62,23 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<version>2.3.3.RELEASE</version>
 
 			<scope>test</scope>
 		</dependency>
-		<!-- OpenAPI-->
+		<!-- OpenAPI -->
 		<dependency>
 			<groupId>io.swagger.core.v3</groupId>
 			<artifactId>swagger-jaxrs2</artifactId>
@@ -79,7 +89,7 @@
 			<artifactId>swagger-jaxrs2-servlet-initializer-v2</artifactId>
 			<version>2.1.4</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-undertow -->
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
