@@ -32,14 +32,8 @@ public class RendezVousController {
 	@ResponseBody
 	public String createdefault() {
 		try {
-			//Date d1 = new Date(2021, 10, 15, 18, 30);
-			int g = userDao.getAllUser().size();
-			
-			//rendezvousDao.save(new RendezVous(new Date(2021, 10, 15, 18, 30), 45, userDao.findUserByMail("ThomasG@gmail.com"), professionnelDao.findProfessionnelByEmail("ax@gmail.com"), "Rendez vous test 1"));
-			
-			//Date d2 = new Date(2021, 10, 17, 16, 00);
-			//rendezvousDao.save(new RendezVous(d2, 30, userDao.findUserByMail("j.r@gmail.com"), professionnelDao.findProfessionnelByEmail("jc@orange.fr"), "Rendez vous test"));
-
+			rendezvousDao.save(new RendezVous(new Date(2021, 10, 15, 18, 30), 45, userDao.findUserByMail("ThomasG@gmail.com"), professionnelDao.findProfessionnelByEmail("ax@gmail.com"), "Rendez vous test 1"));
+			rendezvousDao.save(new RendezVous(new Date(2021, 10, 17, 16, 00), 30, userDao.findUserByMail("j.r@gmail.com"), professionnelDao.findProfessionnelByEmail("jc@orange.fr"), "Rendez vous test"));
 		}
 		catch (Exception ex) {
 			return "Error creating the rendezvous";
@@ -202,7 +196,9 @@ public class RendezVousController {
 
 	@Autowired
 	private RendezVousDao rendezvousDao;
+	@Autowired
 	private UserDao userDao;
+	@Autowired
 	private ProfessionnelDao professionnelDao; 
 
 }

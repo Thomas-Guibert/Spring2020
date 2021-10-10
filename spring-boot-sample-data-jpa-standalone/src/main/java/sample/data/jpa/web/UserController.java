@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import sample.data.jpa.domain.RendezVous;
 import sample.data.jpa.domain.User;
+import sample.data.jpa.service.ProfessionnelDao;
 import sample.data.jpa.service.UserDao;
 
 @Controller
@@ -126,7 +127,6 @@ public class UserController {
 	
 	
 	//Show
-	
 	@RequestMapping("user/showAllUser")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ResponseBody

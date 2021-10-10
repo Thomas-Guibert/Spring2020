@@ -21,19 +21,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import sample.data.jpa.service.UserDao;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 //import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-//@EnableSwagger2
+@EnableSwagger2
 public class SampleDataJpaApplication {
-/*
-	@Autowired
-	private UserDao userService;*/
-/*
-	public void run(String... args) {
-		System.out.println(this.userService.getAllUser().size());
-	}*/
 	
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(SampleDataJpaApplication.class, args);
