@@ -38,6 +38,8 @@ docker run --name myadmin -d --link some-mysql:db -p 8082:80 phpmyadmin
 
 De préférence avec le mot de passe "123" étant utilisé de base dans la configuration du TP.
 
+Il faut y créé une base de données nommée "testspringdata".
+
 Ensuite, il suffit d'exécuter la class *"SampleDataJpaApplication"* situer dans la package *"sample.data.jpa"*.
 
 Puis enfin d'utiliser Postman pour utiliser les controller et ainsi modifier 
