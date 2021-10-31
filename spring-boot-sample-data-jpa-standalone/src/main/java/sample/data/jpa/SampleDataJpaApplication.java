@@ -23,7 +23,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import sample.data.jpa.service.UserDao;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-//import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2

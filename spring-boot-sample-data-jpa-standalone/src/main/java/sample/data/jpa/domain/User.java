@@ -8,12 +8,15 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="TypeUtilisateur")
 @DiscriminatorValue("Patient")
 public class User implements Serializable{
 	private long id;
+	@ApiModelProperty(notes = "Name of the Student")
 	private String name;
 	private String nameF;
 	private String mail;

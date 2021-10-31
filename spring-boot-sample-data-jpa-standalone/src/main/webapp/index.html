@@ -3,10 +3,10 @@
 <head>
 <style>
 body {background-image: url('http://phpography.com/images/orange-planet-wallpaper-3.jpg');
--webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+ background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: center top;
+    background-attachment: fixed;
   }
 h1   {color: white;}
 h2   {color: white;}
@@ -29,18 +29,95 @@ background-color: rgba(28,28,28, 0.5);}
 <div style="text-align:center">
 <br/>
 <span>
-<h2>Nouveaux utilisateur</h2>
+<h2>Nouveau utilisateur</h2>
 <BR>
-<FORM Method="POST" Action="/UserInfo">
-Prenom : 		<INPUT type="text" size="38" name="name"><BR>
+<FORM Method="POST" Action="/user/create/name">
+Prenom : 		<INPUT type="text" size="38"  name="name"><BR>
 Nom : 	<INPUT type="text" size="40" name="nameF"><BR>
 Mail : 		<INPUT type="text" size="40" name="mail"><BR>
 Mdp : 		<INPUT type="text" size="40" name="pwd"><BR><BR>
-		<INPUT type="submit" value="Validé">
+		<INPUT type="submit" value="Crée ce user">
+</FORM>
+<BR>
+<FORM Method="GET" Action="/user/createdefault">
+		<INPUT type="submit" value="Crée user par default">
+</FORM>
+</span>
+<br/>
+</div>
+
+
+<br/>
+<div style="text-align:center">
+<br/>
+<span>
+<h2>Nouveau professionnel</h2>
+<BR>
+<FORM Method="POST" Action="/pro/create/\"name\"/\"nameF\"/\"mail\"/\"pwd\"/\"job\"/\"url\"">
+Prenom : 		<INPUT type="text" size="38" name="name"><BR>
+Nom : 	<INPUT type="text" size="40" name="nameF"><BR>
+Mail : 		<INPUT type="text" size="40" name="mail"><BR>
+Mdp : 		<INPUT type="text" size="40" name="pwd"><BR>
+Job : 		<INPUT type="text" size="41" name="job"><BR>
+Url : 		<INPUT type="text" size="41" name="url"><BR><BR>
+		<INPUT type="submit" value="crée ce professionnel">
+</FORM>
+<BR>
+<FORM Method="GET" Action="/pro/createdefault">
+		<INPUT type="submit" value="Crée professionnel par default">
 </FORM>
 <BR>
 </span>
 <br/>
 </div>
+
+
+<br/>
+<div style="text-align:center">
+<br/>
+<span>
+<h2>Show Users</h2>
+<BR>
+<FORM Method="POST" Action="/user/showAllUser">
+		<INPUT type="submit" value="show user">
+</FORM>
+<BR>
+</span>
+<br/>
+</div>
+
+
+
+<br/>
+<div style="text-align:center">
+<br/>
+<span>
+<h2>Show Professionnel</h2>
+<BR>
+<FORM Method="POST" Action="/user/showAllProfessionnel">
+		<INPUT type="submit" value="Show pro">
+</FORM>
+<BR>
+</span>
+<br/>
+</div>
+
+
+
+<br/>
+<div style="text-align:center">
+<br/>
+<span>
+<h2>Show Rendez-vous</h2>
+<BR>
+<FORM Method="POST" Action="/user/showAllRendezVous">
+		<INPUT type="submit" value="Show Rdv">
+</FORM>
+<BR>
+</span>
+<br/>
+</div>
+
+
 </body>
 </html>

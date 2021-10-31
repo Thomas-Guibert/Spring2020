@@ -9,11 +9,16 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ch.qos.logback.classic.Logger;
+import io.swagger.annotations.ApiOperation;
 import sample.data.jpa.domain.Professionnel;
 import sample.data.jpa.domain.RendezVous;
 import sample.data.jpa.domain.User;
@@ -26,9 +31,9 @@ import sample.data.jpa.service.UserDao;
 public class RendezVousController {
 
 	//Create
-
+	@ApiOperation(value = "CreateRendezVousDefault : Crée des rendez-vous par default")
 	@SuppressWarnings("deprecation")
-	@RequestMapping("/rdv/createdefault")
+	@PostMapping("/rdv/createdefault")
 	@ResponseBody
 	public String createdefault() {
 		try {
@@ -41,8 +46,9 @@ public class RendezVousController {
 		return "RendezVous succesfully";
 	}
 
+	@ApiOperation(value = "CreateRendezVous : Crée un rendez vous avec information renseigner")
 	@SuppressWarnings("deprecation")
-	@RequestMapping("/rdv/create/{year}/{month}/{date}/{hrs}/{min}/{durer}/{umail}/{pmail}/{desc}")
+	@PostMapping("/rdv/create/{year}/{month}/{date}/{hrs}/{min}/{durer}/{umail}/{pmail}/{desc}")
 	@ResponseBody
 	public String create(@PathVariable("year") int year,@PathVariable("month") int month, @PathVariable("date") int date, @PathVariable("hrs") int hrs, @PathVariable("min") int min, @PathVariable("durer") int durer, @PathVariable("umail") String umail, @PathVariable("pmail") String pmail, @PathVariable("desc") String desc) {
 		try {
@@ -57,8 +63,8 @@ public class RendezVousController {
 
 
 	//Delete
-
-	@RequestMapping("/rdv/deleteRdv/{umail}/{pmail}")
+	@ApiOperation(value = "DeleteRendezVous : Supprime un rendez vous entre un professionnel et un professionnel tout les deux identifier par leurs mail")
+	@DeleteMapping("/rdv/deleteRdv/{umail}/{pmail}")
 	@ResponseBody
 	public String delete(@PathVariable("umail") String umail, @PathVariable("pmail") String pmail) {
 		try {
@@ -70,7 +76,8 @@ public class RendezVousController {
 		return "RendezVous succesfully deleted!";
 	}
 
-	@RequestMapping("/rdv/deleteRdvAll")
+	@ApiOperation(value = "DeleteAllRendezVous : Supprime tout les rendezvous de la base de données")
+	@DeleteMapping("/rdv/deleteRdvAll")
 	@ResponseBody
 	public String deleteAll() {
 		try {
@@ -85,7 +92,8 @@ public class RendezVousController {
 		return "RendezVous succesfully deleted!";
 	}
 
-	@RequestMapping("/rdv/deleteRdvUser/{umail}")
+	@ApiOperation(value = "DeleteRendezVousUser : Supprime tout les rendezvous d'un user grace a sont mail")
+	@DeleteMapping("/rdv/deleteRdvUser/{umail}")
 	@ResponseBody
 	public String deleteUser(@PathVariable("umail") String umail) {
 		try {
@@ -100,7 +108,8 @@ public class RendezVousController {
 		return "RendezVous succesfully deleted!";
 	}
 
-	@RequestMapping("/rdv/deleteRdvPro/{pmail}")
+	@ApiOperation(value = "DeleteRendezVousProfessionel : Supprime tout les rendezvous d'un professionnel grace a sont mail")
+	@DeleteMapping("/rdv/deleteRdvPro/{pmail}")
 	@ResponseBody
 	public String deletePro(@PathVariable("pmail") String pmail) {
 		try {
@@ -117,9 +126,9 @@ public class RendezVousController {
 
 
 	//Update 
-
+	@ApiOperation(value = "UpdateDate : Met a jour la date d'un rendezvous entre un professionnel et un user")
 	@SuppressWarnings("deprecation")
-	@RequestMapping("/rdv/updateDate/{year}/{month}/{date}/{hrs}/{min}/{umail}/{pmail}")
+	@PutMapping("/rdv/updateDate/{year}/{month}/{date}/{hrs}/{min}/{umail}/{pmail}")
 	@ResponseBody
 	public String updateDate(@PathVariable("year") int year,@PathVariable("month") int month, @PathVariable("date") int date, @PathVariable("hrs") int hrs, @PathVariable("min") int min, @PathVariable("umail") String umail, @PathVariable("pmail") String pmail) {
 		try {
@@ -134,7 +143,8 @@ public class RendezVousController {
 		return "RendezVous update date succesfully";
 	}
 
-	@RequestMapping("/rdv/updateDate/{durer}/{umail}/{pmail}")
+	@ApiOperation(value = "UpdateDurer: Met a jour la durer d'un rendezvous entre un professionnel et un user")
+	@PutMapping("/rdv/updateDate/{durer}/{umail}/{pmail}")
 	@ResponseBody
 	public String updateDurer(@PathVariable("durer") int durer, @PathVariable("umail") String umail, @PathVariable("pmail") String pmail) {
 		try {
@@ -148,7 +158,8 @@ public class RendezVousController {
 		return "RendezVous update durer succesfully";
 	}
 
-	@RequestMapping("/rdv/updateDate/{desc}/{umail}/{pmail}")
+	@ApiOperation(value = "UpdateDescription : Met a jour la desciption d'un rendezvous entre un professionnel et un user")
+	@PutMapping("/rdv/updateDate/{desc}/{umail}/{pmail}")
 	@ResponseBody
 	public String updateDesc(@PathVariable("desc") String desc, @PathVariable("umail") String umail, @PathVariable("pmail") String pmail) {
 		try {
@@ -165,29 +176,32 @@ public class RendezVousController {
 
 
 	// Show
-
-	@RequestMapping("/rdv/showAllRendezVous")
+	@ApiOperation(value = "ShowAllRendezVous : Montre tout les rendez vous contenus dans la base de données")
+	@GetMapping("/rdv/showAllRendezVous")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ResponseBody
 	public List<RendezVous> showAllRendezVous() {
 		return rendezvousDao.getAllRendezVous();
 	}
-
-	@RequestMapping("/rdv/showRendezVousUser/{umail}")
+	
+	@ApiOperation(value = "ShowRendezVousUser : Montre tout les rendez vous d'un user")
+	@GetMapping("/rdv/showRendezVousUser/{umail}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ResponseBody
 	public List<RendezVous> showAllRendezVousUser(@PathVariable("umail") String umail) {
 		return rendezvousDao.getAllRendezVousOfOneUser(userDao.findUserByMail(umail));
 	}
 
-	@RequestMapping("/rdv/showRendezVousPro/{pmail}")
+	@ApiOperation(value = "ShowRendezVousProfessionnel : Montre tout les rendez vous d'un professionnel")
+	@GetMapping("/rdv/showRendezVousPro/{pmail}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ResponseBody
 	public List<RendezVous> showAllRendezVousPro(@PathVariable("pmail") String pmail) {
 		return rendezvousDao.getAllRendezVousOfOneUser(professionnelDao.findProfessionnelByEmail(pmail));
 	}
 
-	@RequestMapping("/rdv/showRendezVousUserPro/{umail}/{pmail}")
+	@ApiOperation(value = "ShowRendezVousUserProfessionnel : Montre tout les rendez vous entre un user et un professionnel")
+	@GetMapping("/rdv/showRendezVousUserPro/{umail}/{pmail}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ResponseBody
 	public RendezVous showAllRendezVousUserPro(@PathVariable("umail") String umail,@PathVariable("pmail") String pmail) {
