@@ -62,7 +62,7 @@ Lors du TP2 un problème du chargement infini a été rencontré, en effet le Js
 
 Voici le diagramme UML des classes métiers :
 
-![UML](/home/thomas/git/FINALTAATP/Spring2020/spring-boot-sample-data-jpa-standalone/UML.png)
+![UML](UML.png)
 
 Nous avons fait ce choix car c'est une structure bien adapter au projet en plus d'etre simple à mettre en place.
 
