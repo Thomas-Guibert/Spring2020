@@ -60,6 +60,12 @@ Les classes métier n'ont pas vraiment changé en passant sur Spring. Elle garde
 
 Lors du TP2 un problème du chargement infini a été rencontré, en effet le Json qui chargeait un user, chargeait le rendez-vous rattaché, mais il chargeait à nouveau l'User car il était contenu dans celui-ci. C'est pour cela que l'annotation "@JsonIgnore" a été ajoutée.
 
+Voici le diagramme UML des classes métiers :
+
+![image-20211121141910599](/home/thomas/snap/typora/42/.config/Typora/typora-user-images/image-20211121141910599.png)
+
+Nous avons fait ce choix car c'est une structure bien adapter au projet en plus d'etre simple à mettre en place.
+
 ## Les DAO avec Spring
 
 Comme vu en cours les DAO en string sont plus simples à mettre en place. Plus besoin de code, seulement des requêtes JPQL.
